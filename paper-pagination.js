@@ -6,6 +6,7 @@ import '@polymer/paper-icon-button/paper-icon-button';
 import '@polymer/paper-item/paper-item';
 import '@polymer/paper-listbox/paper-listbox';
 import '@polymer/neon-animation/neon-animation';
+import './icons/paper-pagination-icons.js';
 
 export class PaperPagination extends PolymerElement {
 
@@ -27,15 +28,29 @@ export class PaperPagination extends PolymerElement {
                 .flex-vertical {
                     @apply --layout-vertical;
                 }
+
+                .flex-start-justified{
+                    @apply --layout-start-justified;
+                }
+
+                .flex-center-justified{
+                    @apply --layout-center-justified;
+                }
     
                 .flex-end-justified {
                     @apply --layout-end-justified;
                 }
-    
+                
+                paper-input{
+                    display: flex;
+                    position: relative;
+                    width: 40px;
+                }
+
                 paper-dropdown-menu {
                     width: 50px;
                 }
-    
+                
                 paper-listbox {
                     min-width: 60px;
                 }
@@ -47,11 +62,13 @@ export class PaperPagination extends PolymerElement {
                     border-radius: 50%;
                     margin: 0.29em;
                     font-weight: 600;
-                    font-family: "Open Sans";
                 }
     
+                paper-input {
+                    top: -20px;
+                }
+
                 paper-dropdown-menu {
-    
                     top: -20px;
                 }
     
@@ -62,7 +79,7 @@ export class PaperPagination extends PolymerElement {
     
             </style>
             <div hidden$="[[hide]]">
-                <div id="container" class="flex flex-end-justified"></div>
+                <div id="container"></div>
             </div>
                
         `
@@ -74,10 +91,21 @@ export class PaperPagination extends PolymerElement {
     static get properties() {
         return {
 
+            position: {
+                type: String,
+                value: 'right',
+                observer: '_changePosition'
+            },
+            
+            viewPageRange: {
+                type: Number,
+                value: 5
+            },
+
             page: {
                 type: Number,
                 value: 1,
-                notify: true,
+                notify: true
             },
 
             totalItems: {
@@ -128,16 +156,16 @@ export class PaperPagination extends PolymerElement {
      */
     _hide() {
         return this.totalItems <= this.itemPerPage;
-    }
+    }  
 
     /**
      * @param newValue
      * @private
      */
-    _changeItemPerPage(newValue) {
-        if (!newValue) {
-            return;
-        }
+    _changeItemPerPage(newValue, oldValue) {
+        // if (!newValue) {
+        //     return;
+        // }
 
         let find = this.listNumberPerPage.find(
             (itemPerPage) => {
@@ -150,6 +178,11 @@ export class PaperPagination extends PolymerElement {
                 return prev - next;
             });
             this._render(this.page, this.totalItem, this.itemPerPage);
+        }
+        
+        if(oldValue){
+            let firstPageElement = (oldValue*(this.page-1))+1;
+            this.page = Math.floor(((firstPageElement-1)/newValue)+1);
         }
     }
 
@@ -168,35 +201,56 @@ export class PaperPagination extends PolymerElement {
         this._setNumberPages(Math.ceil(totalItem / itemPerPage));
 
         this._clear();
-        if (this.numberPages < 2) {
-            if (totalItem > 0) {
-                this.$.container.appendChild(this._createNumberItemsElement());
-            }
-            return;
-        }
+        // if (this.numberPages < 2) {
+        //     if (totalItem > 0) {
+        //         this.$.container.appendChild(this._createNumberItemsElement());
+        //     }
+        //     return;
+        // }
 
-        let element;
+        this.$.container.appendChild(this._createInputElement(page));
 
         if (this.nextIcon) {
             this.$.container.appendChild(this._createPreviousElement());
         }
 
-        for (let count = 1; count <= this.numberPages;  count++) {
-            element = document.createElement('paper-button');
-            element.textContent = count;
-            element.page = count;
-            if (count === page) {
-                element.disabled = true;
-                element.classList.add("selected");
+        let middlePageButtonIndex = Math.floor(this.viewPageRange/2);
+        if(page > middlePageButtonIndex){
+            let firstPageButton;
+            let lastPageButtonCounter = this.viewPageRange - middlePageButtonIndex;
+            if(this.numberPages > this.viewPageRange +1){
+                if(page + this.viewPageRange <= this.numberPages + lastPageButtonCounter){
+                    firstPageButton = page - middlePageButtonIndex;
+                } else {
+                    firstPageButton = this.numberPages - this.viewPageRange +1;
+                }                
+            } else {
+                firstPageButton = 1;
             }
-            element.addEventListener('click', this.clickPage.bind(this));
-            this.$.container.appendChild(element);
+            for (let count = firstPageButton; count < firstPageButton + this.viewPageRange && count <= this.numberPages;  count++) {
+                this.createPageButton(page, count);
+            }
+        } else {
+            for (let count = 1; count <= this.viewPageRange && count <= this.numberPages;  count++) {
+                this.createPageButton(page, count);
+            }
         }
 
         if (this.nextIcon) {
             this.$.container.appendChild(this._createNextElement());
         }
         this.$.container.appendChild(this._createNumberItemsElement());
+    }
+
+    /**
+     * @private
+     */
+    _createInputElement(page){
+        let element = document.createElement('paper-input');
+        element.type = "number";
+        element.value = page;
+        element.addEventListener("keyup", this.sendInput.bind(this));
+        return element;
     }
 
     /**
@@ -251,9 +305,22 @@ export class PaperPagination extends PolymerElement {
      * @private
      */
     _clear() {
-
         while (this.$.container.hasChildNodes()) {
             this.$.container.removeChild(this.$.container.lastChild);
+        }
+    }
+
+    _changePosition(newPosition, oldPosition){
+        switch(newPosition){
+            case "center":
+                this.$.container.className = "flex flex-center-justified";
+                break;
+            case "left":
+                this.$.container.className = "flex flex-start-justified";
+                break;
+            default:
+                this.$.container.className = "flex flex-end-justified";
+                break;
         }
     }
 
@@ -285,10 +352,42 @@ export class PaperPagination extends PolymerElement {
     }
 
     /**
+     *
+     */
+    sendInput(event){
+        if (event.keyCode === 13) {
+            let element = this.$.container.querySelector("paper-input");
+            element.value = parseInt(element.value);
+            if(element.value <= this.numberPages && element.value >= 1){
+                this.page = element.value;
+            } else {
+                element.value = undefined;
+                element.placeholder = this.page;
+            }
+        }
+    }
+
+    /**
      * @param evt
      */
     clickItemPerPage(evt) {
         this.itemPerPage = parseInt(evt.detail.item.textContent);
+    }
+
+     /**
+     * 
+     */
+    createPageButton(page, count){
+        let element;
+        element = document.createElement('paper-button');
+        element.textContent = count;
+        element.page = count;
+        if (count === page) {
+            element.disabled = true;
+            element.classList.add("selected");
+        }
+        element.addEventListener('click', this.clickPage.bind(this));
+        this.$.container.appendChild(element);
     }
 }
 

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>paper-pagination demo</title>
+
+    <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../node_modules/web-animations-js/web-animations-next-lite.min.js"></script>
+
+    <script type="module">
+      import '@polymer/iron-demo-helpers/demo-pages-shared-styles';
+      import '@polymer/iron-demo-helpers/demo-snippet';
+    </script>
+
+    <script type="module" src="../paper-pagination.js"></script>
+
+    <custom-style>
+      <style is="custom-style" include="demo-pages-shared-styles">
+      </style>
+    </custom-style>
+  </head>
+  <body>
+    <div class="vertical-section-container centered">
+      <h3>Paginator can be positioned</h3>
+      <demo-snippet>
+        <template>
+          <paper-pagination total-items="100" item-per-page="5" next-icon="paper-pagination:next-arrow" previous-icon="paper-pagination:previous-arrow"></paper-pagination>
+          <paper-pagination total-items="100" item-per-page="5" next-icon="paper-pagination:next-arrow" previous-icon="paper-pagination:previous-arrow" position="center"></paper-pagination>
+          <paper-pagination total-items="100" item-per-page="5" next-icon="paper-pagination:next-arrow" previous-icon="paper-pagination:previous-arrow" position="left"></paper-pagination>
+        </template>
+      </demo-snippet>
+      <h3>Paginator's page number can be customized</h3>
+      <demo-snippet>
+        <template>
+          <paper-pagination total-items="100" item-per-page="5" view-page-range="3" next-icon="paper-pagination:next-arrow" previous-icon="paper-pagination:previous-arrow"></paper-pagination>
+          <paper-pagination total-items="100" item-per-page="5" view-page-range="10" next-icon="paper-pagination:next-arrow" previous-icon="paper-pagination:previous-arrow"></paper-pagination>
+          <paper-pagination total-items="10" item-per-page="5" view-page-range="10" next-icon="paper-pagination:next-arrow" previous-icon="paper-pagination:previous-arrow"></paper-pagination>
+        </template>
+      </demo-snippet>
+    </div>
+  </body>
+</html>
