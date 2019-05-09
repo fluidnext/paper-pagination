@@ -31,12 +31,112 @@
           <paper-pagination total-items="100" item-per-page="5" next-icon="paper-pagination:next-arrow" previous-icon="paper-pagination:previous-arrow" position="left"></paper-pagination>
         </template>
       </demo-snippet>
-      <h3>Paginator's page number can be customized</h3>
+      <h3>Paginator's pages number can be customized</h3>
       <demo-snippet>
         <template>
           <paper-pagination total-items="100" item-per-page="5" view-page-range="3" next-icon="paper-pagination:next-arrow" previous-icon="paper-pagination:previous-arrow"></paper-pagination>
           <paper-pagination total-items="100" item-per-page="5" view-page-range="10" next-icon="paper-pagination:next-arrow" previous-icon="paper-pagination:previous-arrow"></paper-pagination>
           <paper-pagination total-items="10" item-per-page="5" view-page-range="10" next-icon="paper-pagination:next-arrow" previous-icon="paper-pagination:previous-arrow"></paper-pagination>
+        </template>
+      </demo-snippet>
+      <h3>Paginator can be stylized</h3>
+      <demo-snippet>
+        <template>
+          <custom-style>
+            <style>
+              paper-pagination.custom {
+                --paper-icon-button:{
+                  color: orange;
+                  opacity: 1;
+                }
+                --paper-icon-button-disabled: {
+                  color: #F79862;
+                  opacity: 0.5;
+                }
+                
+                --paper-input-container: {
+                  --paper-input-container-color:  #F79862;
+                  --paper-input-container-focus-color: orange;
+                  --paper-input-container-input-color: orange;
+                }
+
+                --paper-input-container-underline: {
+                  opacity: 0.5;
+                }
+
+                --paper-button: {
+                  color: orange;
+                }
+
+                --paper-button-disabled: {
+                  background-color: orange;
+                  color: white;
+                }
+
+                --paper-dropdown-menu: {
+                  color: orange;
+                  --paper-listbox-color: orange;
+                  --paper-listbox-color: orange;
+                }
+                --paper-dropdown-menu-icon: {
+                  color: orange;
+                }
+                
+
+              }
+            </style>
+          </custom-style>
+          <paper-pagination class="custom" total-items="20" item-per-page="5" view-page-range="10" next-icon="paper-pagination:next-arrow" previous-icon="paper-pagination:previous-arrow"></paper-pagination>
+          
+          
+          <custom-style>
+            <style>
+              paper-pagination.custom2nd {
+                --paper-icon-button:{
+                  color: blue;
+                  opacity: 1;
+                }
+                --paper-icon-button-disabled: {
+                  color: blue;
+                  opacity: 0.5;
+                }
+
+                --paper-input-container: {
+                  --paper-input-container-color:  blue;
+                  --paper-input-container-focus-color: blue;
+                  --paper-input-container-input-color: blue;
+                }
+                
+                --paper-input-container-label:{
+                  opacity: 0.5;
+                }
+
+                --paper-input-container-underline: {
+                  opacity: 0.5;
+                }
+
+                --paper-button: {
+                  color: blue;
+                }
+
+                --paper-button-disabled: {
+                  background-color: blue;
+                  color: white;
+                }
+
+                --paper-dropdown-menu: {
+                  color: blue;
+                  --paper-listbox-color: blue;
+                }
+
+                --paper-dropdown-menu-icon: {
+                  color: blue;
+                }
+
+              }
+            </style>
+          </custom-style>
+          <paper-pagination class="custom2nd" total-items="20" item-per-page="5" view-page-range="10" next-icon="paper-pagination:next-arrow" previous-icon="paper-pagination:previous-arrow"></paper-pagination>
         </template>
       </demo-snippet>
     </div>

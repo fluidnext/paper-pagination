@@ -7,6 +7,7 @@ import '@polymer/paper-item/paper-item';
 import '@polymer/paper-listbox/paper-listbox';
 import '@polymer/neon-animation/neon-animation';
 import './icons/paper-pagination-icons.js';
+import { ElementMixin } from '@polymer/polymer/lib/mixins/element-mixin';
 
 export class PaperPagination extends PolymerElement {
 
@@ -15,6 +16,10 @@ export class PaperPagination extends PolymerElement {
             <style >
                 :host {
                     display: block;
+                    --paper-button-disabled: { 
+                        background-color: var(--dark-primary-color);
+                        color: var(--text-primary-color);
+                    };
                 }
     
                 .flex {
@@ -40,15 +45,17 @@ export class PaperPagination extends PolymerElement {
                 .flex-end-justified {
                     @apply --layout-end-justified;
                 }
-                
-                paper-input{
+
+                paper-input {
                     display: flex;
                     position: relative;
-                    width: 40px;
+                    width: 50px;
+                    height: 60px;
                 }
 
                 paper-dropdown-menu {
                     width: 50px;
+                    height: 60px;
                 }
                 
                 paper-listbox {
@@ -65,16 +72,15 @@ export class PaperPagination extends PolymerElement {
                 }
     
                 paper-input {
-                    top: -20px;
+                    top: -15px;
                 }
 
                 paper-dropdown-menu {
-                    top: -20px;
+                    top: -15px;
                 }
-    
+                
                 .selected {
-                    background-color: var(--dark-primary-color);
-                    color: var(--text-primary-color);
+                    @apply --paper-button-disabled;
                 }
     
             </style>
@@ -90,6 +96,11 @@ export class PaperPagination extends PolymerElement {
      */
     static get properties() {
         return {
+
+            currentPageLabel:{
+                type: String,
+                value: 'of '
+            },
 
             position: {
                 type: String,
@@ -170,7 +181,8 @@ export class PaperPagination extends PolymerElement {
         let find = this.listNumberPerPage.find(
             (itemPerPage) => {
                 return itemPerPage === newValue
-        });
+            }
+        );
 
         if (!find) {
             this.listNumberPerPage.push(newValue);
@@ -247,6 +259,8 @@ export class PaperPagination extends PolymerElement {
      */
     _createInputElement(page){
         let element = document.createElement('paper-input');
+        element.label = this.currentPageLabel + this.numberPages;
+        element.alwaysFloatLabel = true;
         element.type = "number";
         element.value = page;
         element.addEventListener("keyup", this.sendInput.bind(this));
@@ -286,6 +300,7 @@ export class PaperPagination extends PolymerElement {
      */
     _createNumberItemsElement() {
         let element = document.createElement('paper-dropdown-menu');
+        element.label = "Items";
         element.addEventListener('iron-select', this.clickItemPerPage.bind(this));
         let paperBox = document.createElement('paper-listbox');
         paperBox.slot = "dropdown-content";

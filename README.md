@@ -65,6 +65,10 @@ By default the paper pagination component is positioned in the right side of it'
 ### Custom page number
 By default the paper pagination component shows a maximum of 5 pages to navigate. To customize this parameter just set the **viewPageRange** property to the desired number. *Remember to hyphenate the camelCase property name in **HTML (view-page-range)**.*
 
+### Custom Style
+This component is made with a "paper-input" element for the ,two "paper-icon-button" elements for the arrows, a "paper-dropdown-menu" element with a "paper-listbox" element inside it ("paper-listbox" element contains some "paper-input" elements) that rapresent the menu to select the items per page. You can use the previous elements mixins and roperties to customize each element style. 
+*Visit the Demo to see an example*
+
 ## Contributing
 If you want to send a PR to this element, here are
 the instructions for running the tests and demo locally:
