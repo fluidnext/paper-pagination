@@ -1,4 +1,5 @@
 node_modules
+# Coverage directory used by tools like istanbul
 coverage
 package-lock.json
 

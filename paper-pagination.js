@@ -7,7 +7,6 @@ import '@polymer/paper-item/paper-item';
 import '@polymer/paper-listbox/paper-listbox';
 import '@polymer/neon-animation/neon-animation';
 import './icons/paper-pagination-icons.js';
-import { ElementMixin } from '@polymer/polymer/lib/mixins/element-mixin';
 
 export class PaperPagination extends PolymerElement {
 
@@ -107,7 +106,7 @@ export class PaperPagination extends PolymerElement {
                 value: 'right',
                 observer: '_changePosition'
             },
-            
+
             viewPageRange: {
                 type: Number,
                 value: 5
@@ -167,16 +166,13 @@ export class PaperPagination extends PolymerElement {
      */
     _hide() {
         return this.totalItems <= this.itemPerPage;
-    }  
+    }
 
     /**
      * @param newValue
      * @private
      */
     _changeItemPerPage(newValue, oldValue) {
-        // if (!newValue) {
-        //     return;
-        // }
 
         let find = this.listNumberPerPage.find(
             (itemPerPage) => {
@@ -191,7 +187,7 @@ export class PaperPagination extends PolymerElement {
             });
             this._render(this.page, this.totalItem, this.itemPerPage);
         }
-        
+
         if(oldValue){
             let firstPageElement = (oldValue*(this.page-1))+1;
             this.page = Math.floor(((firstPageElement-1)/newValue)+1);
@@ -213,13 +209,6 @@ export class PaperPagination extends PolymerElement {
         this._setNumberPages(Math.ceil(totalItem / itemPerPage));
 
         this._clear();
-        // if (this.numberPages < 2) {
-        //     if (totalItem > 0) {
-        //         this.$.container.appendChild(this._createNumberItemsElement());
-        //     }
-        //     return;
-        // }
-
         this.$.container.appendChild(this._createInputElement(page));
 
         if (this.nextIcon) {
@@ -230,15 +219,18 @@ export class PaperPagination extends PolymerElement {
         if(page > middlePageButtonIndex){
             let firstPageButton;
             let lastPageButtonCounter = this.viewPageRange - middlePageButtonIndex;
-            if(this.numberPages > this.viewPageRange +1){
-                if(page + this.viewPageRange <= this.numberPages + lastPageButtonCounter){
+
+            switch (true) {
+                case this.numberPages > this.viewPageRange +1 && page + this.viewPageRange <= this.numberPages + lastPageButtonCounter:
                     firstPageButton = page - middlePageButtonIndex;
-                } else {
+                    break;
+                case this.numberPages > this.viewPageRange +1 && page + this.viewPageRange > this.numberPages + lastPageButtonCounter:
                     firstPageButton = this.numberPages - this.viewPageRange +1;
-                }                
-            } else {
-                firstPageButton = 1;
+                    break;
+                default:
+                    firstPageButton = 1;
             }
+
             for (let count = firstPageButton; count < firstPageButton + this.viewPageRange && count <= this.numberPages;  count++) {
                 this.createPageButton(page, count);
             }
@@ -390,7 +382,7 @@ export class PaperPagination extends PolymerElement {
     }
 
      /**
-     * 
+     *
      */
     createPageButton(page, count){
         let element;
