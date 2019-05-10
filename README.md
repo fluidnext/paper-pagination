@@ -1,4 +1,4 @@
-[![npm version](https://badge.fury.io/js/%40fluidnext-polymer%2Fpaper-input-file.svg)](https://badge.fury.io/js/%40fluidnext-polymer%2Fpaper-input-file)
+[![npm version](https://badge.fury.io/js/%40fluidnext-polymer%2Fpaper-pagination.svg)](https://badge.fury.io/js/%40fluidnext-polymer%2Fpaper-pagination)
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/@fluidnext-polymer/paper-pagination)
 
 # Paper Pagination
