@@ -14,7 +14,6 @@ package-lock.json
 
 # Coverage directory used by tools like istanbul
 coverage
-package-lock.json
 
 # IDE - VSCode
 .vscode/*
