@@ -2,7 +2,7 @@
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/@fluidnext-polymer/paper-pagination)
 
 # Paper Pagination
-<p>&lt;paper-pagination&gt;&lt;/paper-pagination&gt; is a page navigation element, simple to use and customize.</p>
+<p>&lt;paper-pagination&gt;&lt;/paper-pagination&gt; is a [Polymer 3](https://polymer-library.polymer-project.org/3.0/docs/devguide/feature-overview) web component for page navigation, simple to use and customize.</p>
 
 See: [Demo](https://www.webcomponents.org/element/@fluidnext-polymer/paper-pagination/demo/demo/index.html).
 
