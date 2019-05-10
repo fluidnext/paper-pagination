@@ -9,6 +9,8 @@ logs
 *.log
 npm-debug.log*
 
+#Json files
+package-lock.json
 
 # Coverage directory used by tools like istanbul
 coverage
