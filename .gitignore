@@ -1,7 +1,27 @@
-node_modules
+# Dependency directories
+node_modules/
+
+# Output of 'npm pack'
+*.tgz
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+
 # Coverage directory used by tools like istanbul
 coverage
 package-lock.json
 
-.idea
-.idea/git stats**
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+
+
+# System Files
+.DS_Store
+Thumbs.db

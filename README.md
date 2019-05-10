@@ -1,7 +1,10 @@
+[![npm version](https://badge.fury.io/js/%40fluidnext-polymer%2Fpaper-input-file.svg)](https://badge.fury.io/js/%40fluidnext-polymer%2Fpaper-input-file)
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/@fluidnext-polymer/paper-pagination)
+
 # Paper Pagination
 <p>&lt;paper-pagination&gt;&lt;/paper-pagination&gt; is a page navigation element, simple to use and customize.</p>
 
-See: [Demo]().
+See: [Demo](https://www.webcomponents.org/element/@fluidnext-polymer/paper-pagination/demo/demo/index.html).
 
 ## Usage
 ### Installation
