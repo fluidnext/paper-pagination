@@ -135,14 +135,15 @@ export class PaperPagination extends PolymerElement {
 
             listNumberPerPage: {
                 type: Array,
-                value: [
-                    5,
-                    10,
-                    20,
-                    30,
-                    40,
-                    50
-                ]
+                value: () => { return [
+                        5,
+                        10,
+                        20,
+                        30,
+                        40,
+                        50
+                    ];
+                }
             },
 
             nextIcon: {
