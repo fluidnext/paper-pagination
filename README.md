@@ -18,7 +18,7 @@ npm install --save @fluidnext-polymer/paper-pagination
   <head>
     <script type="module" src="@fluidnext-polymer/paper-pagination/paper-pagination.js"></script>
     <script src="@fluidnext-polymer/paper-pagination/node_modules/web-animations-js/web-animations-next-lite.min.js"></script>
-    <script src="@fluidnext-polymer/paper-pagination/icons/paper-pagination/icons"></script>
+    <script src="@fluidnext-polymer/paper-pagination/icons/paper-pagination-icons"></script>
   </head>
   <body>
     <paper-pagination total-items="50" item-per-page="10" next-icon="paper-pagination:next-arrow" previous-icon="paper-pagination:previous-arrow"></paper-pagination>
@@ -30,7 +30,7 @@ npm install --save @fluidnext-polymer/paper-pagination
 ```js
 import {PolymerElement, html} from '@polymer/polymer';
 import '@fluidnext-polymer/paper-pagination/paper-pagination';
-import '@fluidnext-polymer/paper-pagination/icons/paper-pagination/icons';
+import '@fluidnext-polymer/paper-pagination/icons/paper-pagination-icons';
 
 class SampleElement extends PolymerElement {
   static get template() {

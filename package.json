@@ -22,6 +22,7 @@
     "url": "https://github.com/fluidnext/paper-pagination/issues"
   },
   "homepage": "https://github.com/fluidnext/paper-pagination#readme",
+  "main": "paper-pagination.js",
   "devDependencies": {
     "coveralls": "^3.0.3",
     "mocha-lcov-reporter": "^1.3.0",
