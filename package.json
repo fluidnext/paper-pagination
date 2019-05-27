@@ -4,6 +4,7 @@
   "description": "Paper Pagination",
   "scripts": {
     "test": "polymer test",
+    "testChrome": "polymer test -l chrome",
     "serve": "polymer serve",
     "demo": "polymer serve --open"
   },
