@@ -1,10 +1,10 @@
 {
   "name": "@fluidnext-polymer/paper-pagination",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Paper Pagination",
   "scripts": {
     "test": "polymer test",
-    "testChrome": "polymer test -l chrome",
+    "test-chrome": "polymer test -l chrome",
     "serve": "polymer serve",
     "demo": "polymer serve --open"
   },

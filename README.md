@@ -1,8 +1,9 @@
+[![Coverage Status](https://coveralls.io/repos/github/fluidnext/paper-pagination/badge.svg?branch=master)](https://coveralls.io/github/fluidnext/paper-pagination?branch=master)
 [![npm version](https://badge.fury.io/js/%40fluidnext-polymer%2Fpaper-pagination.svg)](https://badge.fury.io/js/%40fluidnext-polymer%2Fpaper-pagination)
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/@fluidnext-polymer/paper-pagination)
 
 # Paper Pagination
-Is a [Polymer 3](https://polymer-library.polymer-project.org/3.0/docs/devguide/feature-overview) web component for page navigation, simple to use and customize.
+Is a [Polymer 3](https://polymer-library.polymer-project.org) web component for page navigation, simple to use and customize.
 
 See: [Demo](https://www.webcomponents.org/element/@fluidnext-polymer/paper-pagination/demo/demo/index.html).
 
@@ -63,13 +64,13 @@ const template = html`
 document.head.appendChild(template.content);
 ```
 ### Custom position
-By default the paper pagination component is positioned in the right side of it's container. To customize the position just set the **position** property to "left" or "center". 
+By default the paper pagination component is positioned in the right side of it's container. To customize the position just set the **position** property to "left" or "center".
 
 ### Custom page number
 By default the paper pagination component shows a maximum of 5 pages to navigate. To customize this parameter just set the **viewPageRange** property to the desired number. *Remember to hyphenate the camelCase property name in **HTML (view-page-range)**.*
 
 ### Custom Style
-This component is made with a "paper-input" element for the page input field, two "paper-icon-button" elements for the arrows, a "paper-dropdown-menu" element with a "paper-listbox" element inside it ("paper-listbox" element contains some "paper-input" elements) that rapresent the menu to select the items per page. You can use the previous elements mixins and properties to customize each element style. 
+This component is made with a "paper-input" element for the page input field, two "paper-icon-button" elements for the arrows, a "paper-dropdown-menu" element with a "paper-listbox" element inside it ("paper-listbox" element contains some "paper-input" elements) that rapresent the menu to select the items per page. You can use the previous elements mixins and properties to customize each element style.
 *Visit the Demo to see an example*
 
 ## Contributing
