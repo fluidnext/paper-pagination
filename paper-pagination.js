@@ -6,7 +6,6 @@ import '@polymer/paper-icon-button/paper-icon-button';
 import '@polymer/paper-item/paper-item';
 import '@polymer/paper-listbox/paper-listbox';
 import '@polymer/neon-animation/neon-animation';
-import './icons/paper-pagination-icons.js';
 
 export class PaperPagination extends PolymerElement {
 
