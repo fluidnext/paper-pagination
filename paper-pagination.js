@@ -7,6 +7,9 @@ import '@polymer/paper-item/paper-item';
 import '@polymer/paper-listbox/paper-listbox';
 import '@polymer/neon-animation/neon-animation';
 
+/**
+ * @demo demo/index.html Demos
+ */
 export class PaperPagination extends PolymerElement {
 
     static get template() {
@@ -95,43 +98,71 @@ export class PaperPagination extends PolymerElement {
     static get properties() {
         return {
 
-            currentPageLabel:{
+            currentPageLabel: {
                 type: String,
                 value: 'of '
             },
 
+            /**
+             * Define the position of the pagination.
+             * @type {String}
+             */
             position: {
                 type: String,
                 value: 'right',
                 observer: '_changePosition'
             },
 
+            /**
+             * Maximum page to view -1 to see all page
+             * @type {Number}
+             */
             viewPageRange: {
                 type: Number,
                 value: 5
             },
 
+            /**
+             * Current page
+             * @type {Number}
+             */
             page: {
                 type: Number,
                 value: 1,
                 notify: true
             },
 
+            /**
+             * Total items
+             * @type {Number}
+             */
             totalItems: {
                 type: Number
             },
 
+            /**
+             * Item per page
+             * @type {Number}
+             */
             itemPerPage: {
                 type:Number,
                 notify: true,
                 observer: '_changeItemPerPage'
             },
 
+            /**
+             * Define the position of the pagination.
+             * @type {Number}
+             */
             numberPages: {
                 type: Number,
                 readOnly: true,
             },
 
+            /**
+             * List of item per page
+             * @type {Array<Number>}
+             */
             listNumberPerPage: {
                 type: Array,
                 value: () => { return [
@@ -145,10 +176,18 @@ export class PaperPagination extends PolymerElement {
                 }
             },
 
+            /**
+             * Define the position of the pagination.
+             * @type {String}
+             */
             nextIcon: {
                 type: String,
             },
 
+            /**
+             * Name of the previous icon
+             * @type {String}
+             */
             previousIcon: {
                 type: String,
             }
@@ -232,11 +271,11 @@ export class PaperPagination extends PolymerElement {
             }
 
             for (let count = firstPageButton; count < firstPageButton + this.viewPageRange && count <= this.numberPages;  count++) {
-                this.createPageButton(page, count);
+                this._createPageButton(page, count);
             }
         } else {
             for (let count = 1; count <= this.viewPageRange && count <= this.numberPages;  count++) {
-                this.createPageButton(page, count);
+                this._createPageButton(page, count);
             }
         }
 
@@ -255,7 +294,7 @@ export class PaperPagination extends PolymerElement {
         element.alwaysFloatLabel = true;
         element.type = "number";
         element.value = page;
-        element.addEventListener("keyup", this.sendInput.bind(this));
+        element.addEventListener("keyup", this._sendInput.bind(this));
         return element;
     }
 
@@ -266,7 +305,7 @@ export class PaperPagination extends PolymerElement {
         let element = document.createElement('paper-icon-button');
         element.icon = this.previousIcon;
         if (this.page > 1) {
-            element.addEventListener('click', this.clickPreviousPage.bind(this));
+            element.addEventListener('click', this._clickPreviousPage.bind(this));
         } else {
             element.disabled = true;
         }
@@ -282,7 +321,7 @@ export class PaperPagination extends PolymerElement {
         if (this.numberPages <= this.page) {
             element.disabled = true;
         } else {
-            element.addEventListener('click', this.clickNextPage.bind(this));
+            element.addEventListener('click', this._clickNextPage.bind(this));
         }
         return element;
     }
@@ -293,7 +332,7 @@ export class PaperPagination extends PolymerElement {
     _createNumberItemsElement() {
         let element = document.createElement('paper-dropdown-menu');
         element.label = "Items";
-        element.addEventListener('iron-select', this.clickItemPerPage.bind(this));
+        element.addEventListener('iron-select', this._clickItemPerPage.bind(this));
         let paperBox = document.createElement('paper-listbox');
         paperBox.slot = "dropdown-content";
         for (let cont = 0; this.listNumberPerPage.length > cont; cont++) {
@@ -317,6 +356,11 @@ export class PaperPagination extends PolymerElement {
         }
     }
 
+    /**
+     * @param newPosition
+     * @param oldPosition
+     * @private
+     */
     _changePosition(newPosition, oldPosition){
         switch(newPosition){
             case "center":
@@ -332,16 +376,18 @@ export class PaperPagination extends PolymerElement {
     }
 
     /**
-     * @param evt
+     * @param {CustomEvent} evt
+     * @private
      */
-    clickPage(evt) {
+    _clickPage(evt) {
         this.page = evt.target.page;
     }
 
     /**
-     *
+     * @param {CustomEvent} evt
+     * @private
      */
-    clickPreviousPage() {
+    _clickPreviousPage(evt) {
         if (this.page < 2) {
             return;
         }
@@ -349,9 +395,10 @@ export class PaperPagination extends PolymerElement {
     }
 
     /**
-     *
+     * @param {CustomEvent} evt
+     * @private
      */
-    clickNextPage() {
+    _clickNextPage(evt) {
         if (this.numberPages <= this.page) {
             return;
         }
@@ -359,9 +406,10 @@ export class PaperPagination extends PolymerElement {
     }
 
     /**
-     *
+     * @param {CustomEvent} event
+     * @private
      */
-    sendInput(event){
+    _sendInput(event){
         if (event.keyCode === 13) {
             let element = this.$.container.querySelector("paper-input");
             element.value = parseInt(element.value);
@@ -375,16 +423,19 @@ export class PaperPagination extends PolymerElement {
     }
 
     /**
-     * @param evt
+     * @param {CustomEvent} evt
+     * @private
      */
-    clickItemPerPage(evt) {
+    _clickItemPerPage(evt) {
         this.itemPerPage = parseInt(evt.detail.item.textContent);
     }
 
-     /**
-     *
+    /**
+     * @param {number} page
+     * @param {number} count
+     * @private
      */
-    createPageButton(page, count){
+    _createPageButton(page, count){
         let element;
         element = document.createElement('paper-button');
         element.textContent = count;
@@ -393,7 +444,7 @@ export class PaperPagination extends PolymerElement {
             element.disabled = true;
             element.classList.add("selected");
         }
-        element.addEventListener('click', this.clickPage.bind(this));
+        element.addEventListener('click', this._clickPage.bind(this));
         this.$.container.appendChild(element);
     }
 }

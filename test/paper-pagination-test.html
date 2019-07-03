@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>paper-pagination test</title>
+
+    <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../node_modules/@polymer/test-fixture/test-fixture.js"></script>
+    <script src="../node_modules/mocha/mocha.js"></script>
+    <script src="../node_modules/chai/chai.js"></script>
+    <script src="../node_modules/wct-mocha/wct-mocha.js"></script>
+
+    <script type="module" src="../paper-pagination.js"></script>
+</head>
+<body>
+
+<test-fixture id="DefaultTestFixture">
+    <template>
+        <paper-pagination></paper-pagination>
+    </template>
+</test-fixture>
+
+<test-fixture id="CustomTestFixture1">
+    <template>
+        <paper-pagination total-items="10" item-per-page="5" view-page-range="10"
+                          next-icon="paper-pagination:next-arrow" previous-icon="paper-pagination:previous-arrow"
+                          position="left"></paper-pagination>
+    </template>
+</test-fixture>
+
+<test-fixture id="CustomTestFixture2">
+    <template>
+        <paper-pagination total-items="100" item-per-page="10" view-page-range="5"
+                          next-icon="paper-pagination:next-arrow" previous-icon="paper-pagination:previous-arrow"
+                          position="center"></paper-pagination>
+    </template>
+</test-fixture>
+
+<test-fixture id="CustomTestFixture3">
+    <template>
+        <paper-pagination total-items="30" item-per-page="12" view-page-range="5"
+                          next-icon="paper-pagination:next-arrow" previous-icon="paper-pagination:previous-arrow"
+                          position="center"></paper-pagination>
+    </template>
+</test-fixture>
+
+<script type="module">
+    suite('paper-pagination', () => {
+
+        test('Default properties', (done) => {
+            const element = fixture("DefaultTestFixture");
+            assert.equal(element.position, 'right', 'On position property');
+            assert.equal(element.viewPageRange, 5, 'On viewPageRange property');
+            assert.equal(element.page, 1, 'On page property');
+            assert.equal(element.totalItems, undefined, 'On totalItems property');
+            assert.equal(element.itemPerPage, undefined, 'On itemPerPage property');
+            assert.equal(element.numberPages, undefined, 'On numberPages property');
+            assert.deepEqual(element.listNumberPerPage, [5, 10, 20, 30, 40, 50], 'On listNumberPerPage property');
+            assert.equal(element.nextIcon, undefined, 'On nextIcon property');
+            assert.equal(element.previousIcon, undefined, 'On previousIcon property');
+            done();
+        });
+
+
+        test('Default properties CustomTestFixture1', (done) => {
+            const element = fixture("CustomTestFixture1");
+            assert.equal(element.position, 'left', 'On position property');
+            assert.equal(element.viewPageRange, 10, 'On viewPageRange property');
+            assert.equal(element.page, 1, 'On page property');
+            assert.equal(element.totalItems, 10, 'On totalItems property');
+            assert.equal(element.itemPerPage, 5, 'On itemPerPage property');
+            assert.equal(element.numberPages, 2, 'On numberPages property');
+            assert.deepEqual(element.listNumberPerPage, [5, 10, 20, 30, 40, 50], 'On listNumberPerPage property');
+            assert.equal(element.nextIcon, "paper-pagination:next-arrow", 'On nextIcon property');
+            assert.equal(element.previousIcon, "paper-pagination:previous-arrow", 'On previousIcon property');
+            assert.equal(element.shadowRoot.querySelectorAll("paper-button").length, element.numberPages, 'On generatedPageButtons');
+            done();
+        });
+
+
+        test('Default properties CustomTestFixture2', (done) => {
+            const element = fixture("CustomTestFixture2");
+            assert.equal(element.position, 'center', 'On position property');
+            assert.equal(element.viewPageRange, 5, 'On viewPageRange property');
+            assert.equal(element.page, 1, 'On page property');
+            assert.equal(element.totalItems, 100, 'On totalItems property');
+            assert.equal(element.itemPerPage, 10, 'On itemPerPage property');
+            assert.equal(element.numberPages, 10, 'On numberPages property');
+            assert.deepEqual(element.listNumberPerPage, [5, 10, 20, 30, 40, 50], 'On listNumberPerPage property');
+            assert.equal(element.nextIcon, "paper-pagination:next-arrow", 'On nextIcon property');
+            assert.equal(element.previousIcon, "paper-pagination:previous-arrow", 'On previousIcon property');
+            assert.equal(element.shadowRoot.querySelectorAll("paper-button").length, element.viewPageRange, 'On generatedPageButtons');
+            done();
+        });
+
+
+        test('Default properties CustomTestFixture3', (done) => {
+            const element = fixture("CustomTestFixture3");
+            assert.equal(element.position, 'center', 'On position property');
+            assert.equal(element.viewPageRange, 5, 'On viewPageRange property');
+            assert.equal(element.page, 1, 'On page property');
+            assert.equal(element.totalItems, 30, 'On totalItems property');
+            assert.equal(element.itemPerPage, 12, 'On itemPerPage property');
+            assert.equal(element.numberPages, 3, 'On numberPages property');
+            assert.deepEqual(element.listNumberPerPage, [5, 10, 12, 20, 30, 40, 50], 'On listNumberPerPage property');
+            assert.equal(element.nextIcon, "paper-pagination:next-arrow", 'On nextIcon property');
+            assert.equal(element.previousIcon, "paper-pagination:previous-arrow", 'On previousIcon property');
+            assert.equal(element.shadowRoot.querySelectorAll("paper-button").length, element.numberPages, 'On generatedPageButtons');
+            done();
+        });
+
+
+        test('Click next and previous page', (done) => {
+            const element = fixture("CustomTestFixture2");
+            let container = element.shadowRoot.getElementById("container");
+            let paperIconsButtons = container.getElementsByTagName("paper-icon-button");
+
+            let event = new MouseEvent("click", {bubbles: true, cancelable: false});
+            paperIconsButtons[1].dispatchEvent(event);
+            assert.equal(element.page, 2, 'Next page');
+
+            paperIconsButtons[0].dispatchEvent(event);
+            assert.equal(element.page, 1, 'previous page');
+
+            done();
+        });
+
+
+        test('Click buttons', (done) => {
+            const element = fixture("CustomTestFixture2");
+            let container = element.shadowRoot.getElementById("container");
+            let paperButtons = container.querySelectorAll("paper-button");
+
+            let event = new MouseEvent("click", {bubbles: true, cancelable: false});
+            paperButtons[4].dispatchEvent(event);
+            assert.equal(element.page, 5, 'Page 5');
+
+            paperButtons[1].dispatchEvent(event);
+            assert.equal(element.page, 2, 'Page 2');
+
+            done();
+        });
+
+
+        test('Change page from paper input', (done) => {
+            const element = fixture("CustomTestFixture2");
+            let container = element.shadowRoot.getElementById("container");
+            container.querySelector("paper-input").value = 4;
+            let event1 = new KeyboardEvent("keyup", {
+                bubbles: true,
+                cancelable: true,
+                key: "Enter",
+                code: 'Enter',
+                keyCode: 13,
+                shiftKey: true
+            });
+            container.querySelector("paper-input").dispatchEvent(event1);
+
+            assert.equal(element.page, 4, 'Page 4');
+
+            let event2 = new KeyboardEvent("keyup", {
+                bubbles: true,
+                cancelable: true,
+                key: "Enter",
+                code: 'Enter',
+                keyCode: 13,
+                shiftKey: true
+            });
+            container.querySelector("paper-input").value = 5;
+            container.querySelector("paper-input").dispatchEvent(event2);
+            assert.equal(element.page, 5, 'Page 5');
+
+            let event3 = new KeyboardEvent("keyup", {
+                bubbles: true,
+                cancelable: true,
+                key: "Enter",
+                code: 'Enter',
+                keyCode: 13,
+                shiftKey: true
+            });
+            container.querySelector("paper-input").value = 11;
+            container.querySelector("paper-input").dispatchEvent(event3);
+            assert.equal(element.page, 5, 'Page 5');
+            assert.equal(container.querySelector("paper-input").value, undefined, 'Value paper input');
+            assert.equal(container.querySelector("paper-input").placeholder, element.page, 'Placeholder paper input');
+
+            done();
+        });
+
+
+        test('Middle render', (done) => {
+            const element = fixture("CustomTestFixture2");
+            let container = element.shadowRoot.getElementById("container");
+            element.page = 9;
+
+            let paperButtons = container.querySelectorAll("paper-button");
+            assert.equal(paperButtons.length, 5, 'Total items');
+            assert.equal(paperButtons[0].page, 6, 'Page 6');
+            assert.equal(paperButtons[1].page, 7, 'Page 7');
+            assert.equal(paperButtons[2].page, 8, 'Page 8');
+            assert.equal(paperButtons[3].page, 9, 'Page 9');
+            assert.equal(paperButtons[4].page, 10, 'Page 10');
+
+            element.page = 5;
+            paperButtons = container.querySelectorAll("paper-button");
+            assert.equal(paperButtons[0].page, 3, 'Page 3');
+            assert.equal(paperButtons[1].page, 4, 'Page 4');
+            assert.equal(paperButtons[2].page, 5, 'Page 5');
+            assert.equal(paperButtons[3].page, 6, 'Page 6');
+            assert.equal(paperButtons[4].page, 7, 'Page 7');
+            done();
+        });
+
+    });
+</script>
+</body>
+</html>
