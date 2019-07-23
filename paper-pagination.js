@@ -47,6 +47,10 @@ export class PaperPagination extends PolymerElement {
                     @apply --layout-end-justified;
                 }
 
+                #container {
+                    align-items: center;
+                }
+
                 paper-input {
                     display: flex;
                     position: relative;
@@ -70,14 +74,6 @@ export class PaperPagination extends PolymerElement {
                     border-radius: 50%;
                     margin: 0.29em;
                     font-weight: 600;
-                }
-    
-                paper-input {
-                    top: -15px;
-                }
-
-                paper-dropdown-menu {
-                    top: -15px;
                 }
                 
                 .selected {
