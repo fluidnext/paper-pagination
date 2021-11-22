@@ -186,6 +186,17 @@ export class PaperPagination extends PolymerElement {
              */
             previousIcon: {
                 type: String,
+            },
+
+            hideNumberElement: {
+                type: Boolean,
+                value: false
+            },
+
+
+            hidePageElement: {
+                type: Boolean,
+                value: false
             }
         }
     }
@@ -244,7 +255,11 @@ export class PaperPagination extends PolymerElement {
         this._setNumberPages(Math.ceil(totalItem / itemPerPage));
 
         this._clear();
-        this.$.container.appendChild(this._createInputElement(page));
+
+        if (!this.hidePageElement) {
+            this.$.container.appendChild(this._createInputElement(page));
+        }
+       
 
         if (this.nextIcon) {
             this.$.container.appendChild(this._createPreviousElement());
@@ -278,7 +293,11 @@ export class PaperPagination extends PolymerElement {
         if (this.nextIcon) {
             this.$.container.appendChild(this._createNextElement());
         }
-        this.$.container.appendChild(this._createNumberItemsElement());
+
+        if (!this.hideNumberElement) {
+            this.$.container.appendChild(this._createNumberItemsElement());
+        }
+        
     }
 
     /**
